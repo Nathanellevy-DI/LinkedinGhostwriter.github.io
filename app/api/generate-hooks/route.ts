@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateHooks } from "@/lib/ai/openai";
+import { generateHooks } from "@/lib/ai/glm";
 
 export async function POST(request: NextRequest) {
     try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!process.env.OPENAI_API_KEY) {
+        if (!process.env.GLM_API_KEY) {
             return NextResponse.json(
                 { error: "API key not configured" },
                 { status: 500 }

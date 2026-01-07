@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generatePost } from "@/lib/ai/openai";
+import { generatePost } from "@/lib/ai/glm";
 
 export async function POST(request: NextRequest) {
     try {
@@ -13,11 +13,11 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!process.env.OPENAI_API_KEY) {
+        if (!process.env.GLM_API_KEY) {
             return NextResponse.json(
                 {
-                    error: "API key not configured. Please add OPENAI_API_KEY to your .env.local file.",
-                    details: "Get your API key from https://platform.openai.com/api-keys"
+                    error: "API key not configured. Please add GLM_API_KEY to your .env.local file.",
+                    details: "Get your FREE API key from https://open.bigmodel.cn/"
                 },
                 { status: 500 }
             );
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         // Provide more specific error messages
         const errorMessage = error?.message || "Failed to generate post";
         const errorDetails = error?.status === 401
-            ? "Invalid API key. Please check your OPENAI_API_KEY in .env.local"
+            ? "Invalid API key. Please check your GLM_API_KEY in .env.local"
             : error?.status === 429
                 ? "Rate limit exceeded. Please try again in a moment."
                 : "An unexpected error occurred. Check the console for details.";
